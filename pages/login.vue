@@ -2,16 +2,18 @@
 import InputEmail from '~/components/forms/InputEmail.vue';
 import InputPassword from '~/components/forms/InputPassword.vue';
 import Button from '~/components/forms/Button.vue';
+import Error from '~/components/Error.vue';
 
 const email = ref('');
 const password = ref('');
+const errorMessage = ref('');
 </script>
 
 <template>
     <main class="auth">
         <h1>Login</h1>
         <form class="auth">
-            <fieldset class="email">
+            <fieldset class="email no-gap">
                 <label for="email">Email</label>
                 <InputEmail v-model="email" required/>
             </fieldset>
@@ -23,6 +25,7 @@ const password = ref('');
 
             <NuxtLink class="forgot-password" to="/recover-password"> Forgot password?</NuxtLink>
             <Button classType="principal" text="Login"/>
+            <Error v-if="errorMessage" errorType="userauth" :errorMessage="errorMessage"/>
         </form>
         <p>
             First time on OctoNews? <NuxtLink to="/register"> Register </NuxtLink>
@@ -84,24 +87,13 @@ form.auth > button {
   main.auth h1 {
     font-size: 3rem;
   }
-  .register-successful,
-  .validate-successful {
-    font-size: 2rem;
-  }
-  .validate-successful a {
-    font-size: 2.5rem;
-  }
 
   form.auth {
     height: 350px;
     align-items: center;
     gap: 1rem;
   }
-  form.auth.register {
-    height: 470px;
-    align-items: center;
-    gap: 0;
-  }
+
   form.auth fieldset label {
     font-size: 1.3rem;
   }
