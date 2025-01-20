@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   modules: ['@pinia/nuxt',
-    '@nuxt/test-utils/module'
+    '@nuxt/test-utils/module',
   ],
   app: {
     head: {
@@ -15,6 +15,11 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
         { rel: 'manifest', href: '/site.webmanifest' }
       ]
+    }
+  },
+  runtimeConfig:{
+    public:{
+      REACT_APP_BACKEND: process.env.REACT_APP_BACKEND
     }
   }
 })

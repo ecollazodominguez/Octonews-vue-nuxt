@@ -3,17 +3,33 @@ import InputEmail from '~/components/forms/InputEmail.vue';
 import InputPassword from '~/components/forms/InputPassword.vue';
 import Button from '~/components/forms/Button.vue';
 import Error from '~/components/Error.vue';
+import { useAuthStore } from '~/stores/auth.store';
 
 const email = ref('');
 const password = ref('');
-const errorMessage = ref('');
+const authStore = useAuthStore();
+const router = useRouter();
+
+onBeforeMount(() => {
+    authStore.updateToken();
+    if (authStore.getToken) {
+        router.push('/');
+    }
+  });
+
+
+const handleLogin = async () =>{
+  await authStore.login(email.value,password.value);
+  authStore.updateToken();
+  router.push('/');
+}
 </script>
 
 <template>
     <main class="auth">
         <h1>Login</h1>
-        <form class="auth">
-            <fieldset class="email no-gap">
+        <form class="auth" @submit.prevent="handleLogin">
+            <fieldset class="email">
                 <label for="email">Email</label>
                 <InputEmail v-model="email" required/>
             </fieldset>
@@ -25,7 +41,7 @@ const errorMessage = ref('');
 
             <NuxtLink class="forgot-password" to="/recover-password"> Forgot password?</NuxtLink>
             <Button classType="principal" text="Login"/>
-            <Error v-if="errorMessage" errorType="userauth" :errorMessage="errorMessage"/>
+            <Error v-if="authStore.errorMessage" errorType="userauth" :errorMessage="authStore.errorMessage"/>
         </form>
         <p>
             First time on OctoNews? <NuxtLink to="/register"> Register </NuxtLink>

@@ -1,5 +1,3 @@
-<script setup>
-</script>
-
 <template>
+    <p>WIP</p>
 </template>
