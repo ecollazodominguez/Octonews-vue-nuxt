@@ -4,24 +4,36 @@ import InputPassword from '~/components/forms/InputPassword.vue';
 import Button from '~/components/forms/Button.vue';
 import Error from '~/components/Error.vue';
 import { useAuthStore } from '~/stores/auth.store';
+import { loginService } from '~/services/login.service';
+import { getUserDataService } from '~/services/getUserData.service';
+
+definePageMeta({
+  middleware: ['auth'],
+})
 
 const email = ref('');
 const password = ref('');
+const errorMessage = ref('');
 const authStore = useAuthStore();
 const router = useRouter();
+let cookieToken = useCookie('token')
 
-onBeforeMount(() => {
-    authStore.updateToken();
-    if (authStore.getToken) {
-        router.push('/');
-    }
-  });
+  if (cookieToken.value) {
+    router.push('/');
+  }
 
 
 const handleLogin = async () =>{
-  await authStore.login(email.value,password.value);
-  authStore.updateToken();
-  router.push('/');
+  try {
+    const newToken = await loginService(email.value,password.value); 
+    // useCookie Token of max age 2 minutes
+    cookieToken = useCookie('token', { maxAge: 60 * 2 })    
+    cookieToken.value = newToken;
+    authStore.setUser(await getUserDataService(cookieToken.value));
+    router.push('/');
+    } catch (error) {
+    errorMessage.value = error.message;
+    }
 }
 </script>
 
@@ -41,7 +53,7 @@ const handleLogin = async () =>{
 
             <NuxtLink class="forgot-password" to="/recover-password"> Forgot password?</NuxtLink>
             <Button classType="principal" text="Login"/>
-            <Error v-if="authStore.errorMessage" errorType="userauth" :errorMessage="authStore.errorMessage"/>
+            <Error v-if="errorMessage" errorType="userauth" :errorMessage="errorMessage"/>
         </form>
         <p>
             First time on OctoNews? <NuxtLink to="/register"> Register </NuxtLink>

@@ -1,15 +1,9 @@
 <script setup>
-onBeforeMount(() => {
-    const router = useRouter();
-    const authStore = useAuthStore();
-    authStore.updateToken();
-    console.log(authStore.getToken)
-    if (authStore.getToken) {
-        router.push('/');
-    }
-});
+definePageMeta({
+  middleware: ['auth'],
+})
 </script>
 
 <template>
-    <p>WIP</p>
+  <p>WIP</p>
 </template>

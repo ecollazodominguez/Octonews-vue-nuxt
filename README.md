@@ -18,6 +18,7 @@ Although Octonews is a first mobile web it work from mobile to desktop, you can 
 
 - Vue
 - Pinia
+- Pinia Plugin Persistedstate
 - Nuxt
 - Vitest
 

@@ -1,40 +1,32 @@
 import { defineStore } from 'pinia';
-import { loginService } from '~/services/login.service';
 
 
 export const useAuthStore = defineStore('auth',{
     state: () => ({
-        token: null,
-        errorMessage: null
+        user: null
     }),
     getters: {
-        getErrorMessage: (state) => state.errorMessage,
-        getToken: (state) => state.token
+        getId: (state) => state.user.id,
+        getName: (state) => state.user.name,
+        getEmail: (state) => state.user.email,
+        getBiography: (state) => state.user.biography,
+        getCreationDate: (state) => state.user.creation_date,
+        getLastUpdateDate: (state) => state.user.last_update_date,
+        getAuthenticated: (state) => state.user.authenticated
     },
     actions: {
-        updateToken() {
-            this.errorMessage = null;
-            const token = localStorage.getItem('token')
-            this.token = token
+        setUser(user) {
+            this.user = {...user};
+            
         },
-        async login(email, password) {
-            try {
-                this.errorMessage = null;
-                const token = await loginService(email,password);    
-
-                // update pinia state
-                this.token = token;
-
-                // store user details and jwt in local storage to keep user logged in between page refreshes
-                localStorage.setItem('token', token)
-            } catch (error) {
-                this.errorMessage = error.message;
-            }
+        updateUser(body){
+            this.user = { ...this.user, ...body };
         },
         logout() {
-            this.errorMessage = null;
-            this.token = null;
-            localStorage.removeItem('token');
+            const token = useCookie('token')
+            token.value = null;
+            this.user = null;
         }
-    }
+    },
+    persist: true,
 });
