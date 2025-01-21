@@ -1,64 +1,70 @@
 <script setup>
-import InputEmail from '~/components/forms/InputEmail.vue';
-import InputPassword from '~/components/forms/InputPassword.vue';
-import Button from '~/components/forms/Button.vue';
-import Error from '~/components/Error.vue';
-import { useAuthStore } from '~/stores/auth.store';
-import { loginService } from '~/services/login.service';
-import { getUserDataService } from '~/services/getUserData.service';
+import InputEmail from "~/components/forms/InputEmail.vue";
+import InputPassword from "~/components/forms/InputPassword.vue";
+import Button from "~/components/forms/Button.vue";
+import Error from "~/components/Error.vue";
+import { useAuthStore } from "~/stores/auth.store";
+import { loginService } from "~/services/login.service";
+import { getUserDataService } from "~/services/getUserData.service";
 
 definePageMeta({
-  middleware: ['auth'],
-})
+  middleware: ["auth"],
+});
 
-const email = ref('');
-const password = ref('');
-const errorMessage = ref('');
+const email = ref("");
+const password = ref("");
+const errorMessage = ref("");
 const authStore = useAuthStore();
 const router = useRouter();
-let cookieToken = useCookie('token')
+let cookieToken = useCookie("token");
 
-  if (cookieToken.value) {
-    router.push('/');
-  }
+if (cookieToken.value) {
+  router.push("/");
+}
 
-
-const handleLogin = async () =>{
+const handleLogin = async () => {
   try {
-    const newToken = await loginService(email.value,password.value); 
+    const newToken = await loginService(email.value, password.value);
+
     // useCookie Token of max age 2 minutes
-    cookieToken = useCookie('token', { maxAge: 60 * 2 })    
+    cookieToken = useCookie("token", { maxAge: 60 * 2 });
     cookieToken.value = newToken;
     authStore.setUser(await getUserDataService(cookieToken.value));
-    router.push('/');
-    } catch (error) {
+    router.push("/");
+  } catch (error) {
     errorMessage.value = error.message;
-    }
-}
+  }
+};
 </script>
 
 <template>
-    <main class="auth">
-        <h1>Login</h1>
-        <form class="auth" @submit.prevent="handleLogin">
-            <fieldset class="email">
-                <label for="email">Email</label>
-                <InputEmail v-model="email" required/>
-            </fieldset>
+  <main class="auth">
+    <h1>Login</h1>
+    <form class="auth" @submit.prevent="handleLogin">
+      <fieldset class="email">
+        <label for="email">Email</label>
+        <InputEmail v-model="email" required />
+      </fieldset>
 
-            <fieldset class="password">
-                <label for="password">Password</label>
-                <InputPassword v-model="password" required/>
-            </fieldset>
+      <fieldset class="password">
+        <label for="password">Password</label>
+        <InputPassword v-model="password" required />
+      </fieldset>
 
-            <NuxtLink class="forgot-password" to="/recover-password"> Forgot password?</NuxtLink>
-            <Button classType="principal" text="Login"/>
-            <Error v-if="errorMessage" errorType="userauth" :errorMessage="errorMessage"/>
-        </form>
-        <p>
-            First time on OctoNews? <NuxtLink to="/register"> Register </NuxtLink>
-        </p>
-    </main>
+      <NuxtLink class="forgot-password" to="/recover-password">
+        Forgot password?</NuxtLink
+      >
+      <Button classType="principal" text="Login" />
+      <Error
+        v-if="errorMessage"
+        errorType="userauth"
+        :errorMessage="errorMessage"
+      />
+    </form>
+    <p>
+      First time on OctoNews? <NuxtLink to="/register"> Register </NuxtLink>
+    </p>
+  </main>
 </template>
 
 <style scoped>

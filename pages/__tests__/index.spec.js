@@ -1,16 +1,15 @@
-import { describe, test, expect, beforeAll, afterAll } from 'vitest';
-import { mountSuspended } from '@nuxt/test-utils/runtime'
-import index from '../index.vue';
+import { describe, test, expect, beforeAll, afterAll } from "vitest";
+import { mountSuspended } from "@nuxt/test-utils/runtime";
+import index from "../index.vue";
 
-describe('LoginPage', () => {
-    let mainPage
+describe("LoginPage", () => {
+  let mainPage;
 
-    beforeAll(async() =>{
-        mainPage = await mountSuspended(index)
-    })
+  beforeAll(async () => {
+    mainPage = await mountSuspended(index);
+  });
 
-    test('renders correctly', () => {
-        expect(mainPage.exists()).toBe(true);
-    })
-
-})
+  test("renders correctly", () => {
+    expect(mainPage.exists()).toBe(true);
+  });
+});

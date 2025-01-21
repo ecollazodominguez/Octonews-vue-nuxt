@@ -1,32 +1,43 @@
 <script setup>
 defineProps({
-    errorType: {
-        type: String,
-        default: 'general',
-        validator(value) {
-            return ['general', 'category-page', 'homepage', 'submit-page', 'result', 'recover-page', 'userauth', 'comments', 'single-news', 'validate-page'].includes(value);
-        }
+  errorType: {
+    type: String,
+    default: "general",
+    validator(value) {
+      return [
+        "general",
+        "category-page",
+        "homepage",
+        "submit-page",
+        "result",
+        "recover-page",
+        "userauth",
+        "comments",
+        "single-news",
+        "validate-page",
+      ].includes(value);
     },
-    errorMessage: {
-        type: String,
-        required: true
-    }
-})
+  },
+  errorMessage: {
+    type: String,
+    required: true,
+  },
+});
 </script>
 
 <template>
-<p :class="`error-${errorType}`">{{ errorMessage }}</p>
+  <p :class="`error-${errorType}`">{{ errorMessage }}</p>
 </template>
 
 <style scoped>
-
-.error-category-page, .error-general{
+.error-category-page,
+.error-general {
   margin-top: 1rem;
   font-size: 1.5rem;
   color: red;
 }
 
-.error-homepage{
+.error-homepage {
   margin-top: 1rem;
   font-size: 1.5rem;
 }
@@ -86,8 +97,7 @@ defineProps({
     font-size: 2rem;
   }
   .error-userauth {
- margin-top: -1rem;
+    margin-top: -1rem;
+  }
 }
-}
-
 </style>
