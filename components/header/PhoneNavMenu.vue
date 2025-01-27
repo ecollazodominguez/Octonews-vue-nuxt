@@ -1,33 +1,30 @@
 <template>
-    <button class="settings">
-            <!-- Logged -->
-             <!-- Have icon -->
-            <!-- <img src="/svg-icons/user-login-default-icon.svg" alt="user-settings"/> -->
-            <!-- Not icon -->
-            <!-- <img src="/octopus.png" alt="user-settings"/> -->
+  <button class="settings">
+    <!-- Logged -->
+    <!-- Have icon -->
+    <!-- <img src="/svg-icons/user-login-default-icon.svg" alt="user-settings"/> -->
+    <!-- Not icon -->
+    <!-- <img src="/octopus.png" alt="user-settings"/> -->
 
-             <!-- Not Logged-->
-        <img src="/svg-icons/users-arrow-left.svg" alt="user-settings"/>
-        
-        <nav class="dropdown dropdown-content">
-            <!-- Logged -->
+    <!-- Not Logged-->
+    <img src="/svg-icons/users-arrow-left.svg" alt="user-settings" />
 
-            <!-- <a href="/settings">Settings</a>
+    <nav class="dropdown dropdown-content">
+      <!-- Logged -->
+
+      <!-- <a href="/settings">Settings</a>
             <hr>
             <button>Logout</button> -->
 
-            <!-- Not Logged-->
-            <a href="/register">Register</a>
-            <hr>
-            <a href="/login">Login</a>
-        </nav>
-    </button>
-
-
+      <!-- Not Logged-->
+      <NuxtLink to="/register">Register</NuxtLink>
+      <hr />
+      <NuxtLink to="/login">Login</NuxtLink>
+    </nav>
+  </button>
 </template>
 
 <style scoped>
-
 button.settings {
   background: none;
   border: none;

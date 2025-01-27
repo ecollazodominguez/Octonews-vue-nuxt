@@ -1,15 +1,19 @@
 <script setup>
-import DesktopNavMenu from './DesktopNavMenu.vue';
-import PhoneNavMenu from './PhoneNavMenu.vue';
+import DesktopNavMenu from "./DesktopNavMenu.vue";
+import PhoneNavMenu from "./PhoneNavMenu.vue";
 </script>
 
 <template>
-    <header class="front-header">
-        <img src="/octopus.png" alt="icon octonews"/>
-        <input type="search" placeholder="search..."/>
-        <DesktopNavMenu/>
-        <!-- <PhoneNavMenu/> -->
-    </header>
+  <header class="front-header">
+    <img
+      src="/octopus.png"
+      alt="icon octonews"
+      @click="() => navigateTo('/')"
+    />
+    <input type="search" placeholder="search..." />
+    <DesktopNavMenu />
+    <!-- <PhoneNavMenu/> -->
+  </header>
 </template>
 
 <style scoped>
@@ -54,7 +58,6 @@ header.front-header > input {
 :-moz-placeholder {
   text-align: center;
 }
-
 
 @media (min-width: 1000px) {
   header.front-header > input {

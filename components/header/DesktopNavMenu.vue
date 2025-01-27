@@ -1,25 +1,24 @@
 <template>
-    <div class="desktop-user">
-        <!-- Logged -->
-         <!-- user have icon-->
-        <!-- <img class="desktop-user-img" src="/octopus.png" alt="user-settings"/> -->
-        <!-- user doesn't have icon-->
-        <!-- <img class="desktop-user-img" src="/octopus.png" alt="user-settings"/> -->
+  <div class="desktop-user">
+    <!-- Logged -->
+    <!-- user have icon-->
+    <!-- <img class="desktop-user-img" src="/octopus.png" alt="user-settings"/> -->
+    <!-- user doesn't have icon-->
+    <!-- <img class="desktop-user-img" src="/octopus.png" alt="user-settings"/> -->
 
-        <nav class="desktop-navmenu">
-            <!-- Logged -->
-            <!-- <a href="/login">Settings</a>
+    <nav class="desktop-navmenu">
+      <!-- Logged -->
+      <!-- <a href="/login">Settings</a>
             <button>Logout</button> -->
 
-            <!-- Not Logged -->
-            <a class="register-header" href="/register">Register</a>
-            <a href="/login">Login</a>
-        </nav>
-    </div>
+      <!-- Not Logged -->
+      <NuxtLink class="register-header" to="/register">Register</NuxtLink>
+      <NuxtLink to="/login">Login</NuxtLink>
+    </nav>
+  </div>
 </template>
 
 <style scoped>
-
 img.desktop-user-img {
   border-radius: 30px;
   width: 60px;
